@@ -1,0 +1,103 @@
+Q1
+
+CREATE TABLE departments (
+department_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(20) NOT NULL,
+created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ,
+updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 
+);
+
+
+Q2
+ALTER TABLE people ADD COLUMN department_id INT UNSIGNE
+D NULL AFTER email;
+ 
+
+Q3
+
+ INSERT INTO departments (name)
+ VALUES
+ ('営業'),('開発'),('経理'),('人事'),('情報システム');
+
+
+INSERT INTO people (name, department‗id)
+VALUES
+('A', 1),
+('B', 1),
+('C', 1),
+('D', 2),
+('E', 2),
+('F', 2),
+('G', 2),
+('h', 3),
+('I', 4),
+('J', 5);
+
+
+INSERT INTO reports (person_id, content)
+VALUES
+(13, 'aaaaaaaaaa'),
+(14, 'bbbbbbbbbb'),
+(15, 'cccccccccc'),
+(16, 'dddddddddd'),
+(17, 'eeeeeeeeee'),
+(18, 'ffffffffff'),
+(19, 'gggggggggg'),
+(20, 'hhhhhhhhhh'),
+(21, 'iiiiiiiiii'),
+(22, 'jjjjjjjjjj');
+
+
+Q4
+
+UPDATE people SET department_id = 1 WHERE  person_id = 1;
+UPDATE people SET department_id = 2 WHERE  person_id = 2;
+UPDATE people SET department_id = 3 WHERE  person_id = 3;
+UPDATE people SET department_id = 4 WHERE  person_id = 4;
+UPDATE people SET department_id = 5 WHERE  person_id = 6;
+UPDATE people SET department_id = 1 WHERE  person_id = 7;
+UPDATE people SET department_id = 2 WHERE  person_id = 8;
+UPDATE people SET department_id = 3 WHERE  person_id = 9;
+UPDATE people SET department_id = 4 WHERE  person_id = 10;
+UPDATE people SET department_id = 5 WHERE  person_id = 11;
+UPDATE people SET department_id = 1 WHERE  person_id = 12;
+
+Q5
+
+ SELECT * FROM  people WHERE gender = 1 ORDER BY age DESC;
+
+Q6
+
+
+SELECTとはレコードを表示する際に扱われ、カラムを指定することで詳細に絞り込むことができる。設問の記述に沿った場合にはテーブル内の`name`, `email`, `age`の三つの情報をレコードごとに表示されることができる。
+
+
+FROMはテーブルを絞り込む際に扱われる。FROM `people`と記述されている場合は、peopleテーブルに絞り込まれている状態で、SELECTやDELETEといったほかの文と組み合わせて用いられる。
+
+
+WHEREではカラムの後にその値を記述することで、その値に完全に一致するレコードを取得することができる。`department_id` = 1と記載した場合にはdepartment_idの値が1のレコードのみが表示される。
+
+
+ORDER BY created_idとは指定したカラム（created_id)を基準にレコードを昇順に並び替えることができる
+
+
+Q7
+
+SELECT name FROM people WHERE (gender = 2 AND age BETWEEN 20 AND 29) OR (gender = 1 AND age BETWEEN 40 AND 49);
+
+Q8
+
+SELECT age FROM people WHERE department_id = 1 ORDER BY age;
+
+
+Q9
+
+SELECT AVG(age) AS average_age FROM people WHERE department_id = 2 AND gender = 2;
+
+Q10
+
+SELECT p.name, d.name, r.content FROM people p JOIN departments d USING (department_id) JOIN reports r USING (person_id);
+
+Q11
+
+SELECT p.name FROM people p LEFT JOIN reports r USING (person_id) WHERE content IS NULL;
